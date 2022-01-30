@@ -1,0 +1,23 @@
+A website based Git ,in other words, a version control repository serviced by an online 
+hosting over the internet is what we know as GitHub. GitHub is the most popular tool for
+sharing code with co-workers, friends or any group. While there have always been alternatives
+to GitHub like Bitbucket,Sourceforge,Google Cloud Source Repositories but GitHub has always 
+proven easy and simple to use,hence chosen by wider group of people.
+
+The push command in git helps in uploading whatever local repositories we have created , changes
+made or worked under ,to remote-repository. Remote repository refers to the online copy of our local
+repository on any of git platforms like github and bitbucket. Using Push also helps us in uploading new
+commits to the remote repository and also update old commits with new. However it should be taken extra 
+care while pushing because pushing can overwrite changes which may cause problems .
+
+Since git helps in co-operation and providing collaborative environment, its not new concept that several
+individuals work under the same source code. In most of the cases , people share and do tasks according to
+their own expertise and merge the splitted work into one. Branching enables every developer/coder in the
+team to branch out from the original-main branch and work with their own, later when all of the branches
+are complete they can easily merge later on.
+
+In this project, we created a remote rempository on github and gave perission to everyone in the team. We created
+a master branch with the code-base for every member. Then we branched out to our own individual branches in order to work
+on our own part. When the work was completed we merged all of our individual branches into one master branch with the 
+help of the team leader. 
+
