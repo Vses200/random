@@ -1,0 +1,44 @@
+what is git
+Git is the most popular version contorl system in the world. What a version control system basically
+does is that it stores the changes made to our files over time in a specifically designed database for
+this purpose called repository. Due to the frequent record of changes or version in the database i:e 
+repository it makes it easy for people colaborating in a group to see who has made change and when.
+And even if something were to go wrong along the process we can easily revert back our project to when
+it was working all good.
+
+advantages of using git
+Without git we would have to constanly save the entire project after every little change we make. This 
+would result in extremely unnecessary wastage of storage and slow. And working on a collaborative environment
+we would have to constantly share the entire code with each other to perform minute changes by email or 
+any other file transfer medium. However git allows us to maintain version control of the same project 
+helping us save a lot of space also making the process a whole lot faster. Git also is very helpful in colaborative
+environment as a repository can be shared among all the co-workers, who can branch out an perform their own task
+only to merge them in the end to produce a complete project.
+
+
+branching
+Branching is a special feature in latest versions of git where we create a separate workflow or a work-branch from
+the current version of the system that we have in order to fix a bug or add a new feature , without taking the risk
+of messing the work built up till there.When we work in big projects which have a lot of data and folders, where so many things can go wrong, it is very
+risky to move away from the code that is already working . In this case we can branch out from the current progress
+and move on with messing around with new additions that we want to make. Branching can also help alot in colaborative
+environment where there are a lot of people working on the same projects either in same parts or different parts of the
+project. People can easily branch out to their own branch and later merge them to a single master brach
+
+
+pushing
+Pushing in git is meant by uploading all the commits made in the local repository into the remote repository so that other
+people working under the same project can continue further. What pushing basically does it that, it make use of git push
+command to transfer the commits. It it the counter part of git fetch where fetching imports commits from remote to local branches.
+Pushing is important because , while we are always keeping our version history in our local repository , local forms of storage,
+are risky where a system failure could damage the progress but, pushing the commits to remote repository makes it a safe approach.
+Also along the while , constantly pushing commits into the remote repository helps us be up to date with the new changes the group
+has made and also helps the group in keeping tabs with the commits in order to avoid conflicts while merging them in the end
+
+what we did in out project
+Our project workflow also was very systematic in terms of using git. First of all we created a remote repository from a members account
+in github.Then we added and gave necessary permissions to all the members of the team . We collectively made a base of the project and pushed it
+into the github repository in the master branch. From there all of the members branched out to their respective branches and carried out
+their assigned part pushing into their own branch. Finally when all of the work was complete and nothing was pending except merging all the 
+branches, we merged all the branches into one master branch and completed our project as such.   
+
