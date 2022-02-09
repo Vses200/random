@@ -1,0 +1,5 @@
+Design and develop GUI application to organize routes information for a transportation company. This application must fulfill below requirements.
+1) The application should allow to add different destination and their information’s
+2) Application should store information about connected road link between different destinations with associated cost.
+3) Application should allow to view different routes between point A to point B
+4) Application should also display shortest distance between any two points
