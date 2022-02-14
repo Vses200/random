@@ -1,0 +1,19 @@
+How to integrate 
+Considering Django has already been installed in the system, we first need to install the Postgre in our system . Secondly we need to install pgAdmin in order to interact with the database as the database grows along with the project.Then we need to create a new database for our website though pgadmin and name it as required. Now since the database it set up we need to connect it to Django. In the settings.py file of our main app we need to make some changes. In the database settings part of the settings.py we need to provide following details
+Name :- name of the database we just created
+User – username of database 
+Password – password for database user
+Host – Database host (localhost – or any other)
+Port – port used to run database 
+Something like below
+DATABASES = {
+'default': {
+'ENGINE': 'django.db.backends.postgresql_psycopg2',
+'NAME': 'dbtest', 
+'USER': 'postgres', 
+'PASSWORD': '1234',
+'HOST': '127.0.0.1', 
+'PORT': '5432',
+}
+}
+And that’s it. After completion of these mentioned steps we have successfully completed the Django and PostgreSQL connection.   
