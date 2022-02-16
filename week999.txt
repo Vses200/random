@@ -1,0 +1,241 @@
+package week9AndFollowing;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.Map;
+import java.util.Queue;
+
+public class Algo {
+	static class Location{
+		String place;
+		int distance;
+		String from;
+		
+		public Location(String place,int distance,String from) {
+			this.place = place;
+			this.distance = distance;
+			this.from = from;
+		}
+	}
+	public static String dijikstra(ArrayList<Location> list,String source,String destination) {
+		HashMap<String,Boolean> visited = new HashMap<String,Boolean>();
+		HashMap<String,Integer> distance = new HashMap<String,Integer>();
+		HashMap<String,String> path = new HashMap<String,String>();
+		
+		 ListIterator<Location> litr= list.listIterator();
+		   
+	     
+	      while(litr.hasNext()){
+	    	  Location temp = litr.next();
+	    	  
+	    	  visited.put(temp.place, false);
+	    	  distance.put(temp.place,Integer.MAX_VALUE);
+	    	  
+	      }
+	 
+	      distance.put(source, 0);
+		
+		
+		
+		//int closestPlace = Collections.min(distance.values());
+		//System.out.println(closestPlace);
+	      String closestPlace="";
+		boolean firsttime = true;
+		while(visited.values().stream().distinct().count()>1 || firsttime) {
+			firsttime=false;
+			 closestPlace = findClosestPlace(distance, visited);
+			//System.out.println(closestPlace);
+			ListIterator<Location> liter= list.listIterator();
+			while(liter.hasNext()) {
+				 Location temp = liter.next();
+
+					 if(temp.place.equals(closestPlace)) {
+						 int newDistance = distance.get(closestPlace)+temp.distance;
+						 if(newDistance<distance.get(temp.from)) {
+							 distance.put(temp.from,newDistance);
+							 path.put(temp.from, closestPlace); 
+						 } 
+				 }
+				
+					 if(temp.from.equals(closestPlace)) {
+						 int newDistance = distance.get(closestPlace)+temp.distance;
+						 if(newDistance<distance.get(temp.place)) {
+							 distance.put(temp.place,newDistance);
+							 path.put(temp.place, closestPlace); 
+						 } 
+					 }
+			}
+			
+			visited.put(closestPlace, true);	
+		}
+		
+		String res = findPath(source, destination, path,list);
+		return res;
+		
+	}
+	public static String findPath(String source,String destination,HashMap<String,String> path,ArrayList<Location> list) {
+	
+	 
+	
+		String tempStr = destination;
+		String res =  destination;
+		int length =0;
+		while(!tempStr.equals(source)) {
+			
+			ListIterator<Location> litr= list.listIterator();
+			 while(litr.hasNext()){
+		    	  Location temp = litr.next();
+		    	 
+		    	 if(temp.from.equals(tempStr) && temp.place.equals(path.get(tempStr))) {
+		    		 length = temp.distance;
+		    	 }
+		    	  
+		      }
+			
+			tempStr = path.get(tempStr);
+			if(!tempStr.equals(source)) {
+				
+				res = tempStr + " --- "+length +" --- " + res;
+			}
+		}
+		res = source + " --- "+length+ " --- " + res;
+		return res;
+		//findAllPossiblePaths(source, destination, list);
+		
+	}
+	
+	public static String findClosestPlace(HashMap<String,Integer> distance,HashMap<String,Boolean> visited) {
+		int leastDistance = Integer.MAX_VALUE;
+		String closestPlace = "";
+		 
+		
+		for(Map.Entry<String,Integer> temp : distance.entrySet()) {
+			//System.out.println(temp.getKey());
+			if(!visited.get(temp.getKey())) {
+				if(leastDistance>temp.getValue()) {
+					leastDistance = temp.getValue();
+					closestPlace = temp.getKey();
+				}
+			}
+		}
+		
+		//System.out.println(closestPlace);
+		return closestPlace;
+	}	
+	
+ 
+	public static ArrayList<String> bfs(ArrayList<Location> list,String source,String destination) {
+		ArrayList<String> path = new ArrayList<String>();	
+		Queue<ArrayList<String>> queue = new LinkedList<ArrayList<String>>();
+		ArrayList<ArrayList<String>> allPaths = new ArrayList<ArrayList<String>>();
+		
+		path.add(source);
+		queue.offer(path);
+		while(!queue.isEmpty()) {
+			path = queue.poll();
+			String last = path.get(path.size()-1);
+			
+			if(last.equals(destination)){
+				allPaths.add(path);
+			}
+			ArrayList<String> allNeighbours = new ArrayList<String>();
+			ListIterator<Location> litr= list.listIterator();
+			while(litr.hasNext()){
+		    	  Location temp = litr.next();
+		    	  if(temp.from.equals(last)) {
+		    		  allNeighbours.add(temp.place);
+		    	  }
+		    	  
+			}
+			
+			for(int i=0;i<allNeighbours.size();i++) {
+				if(isNotVisited(allNeighbours.get(i), path)) {
+					ArrayList<String> newPath = new ArrayList<String>(path);
+					newPath.add(allNeighbours.get(i));
+					queue.offer(newPath);
+				}
+			}
+		}
+		 ArrayList<String> finalPaths = new ArrayList<String>();
+		for(int i=0;i<allPaths.size();i++) {
+			String s = "";
+			   ArrayList<String> listr= allPaths.get(i);
+			   ListIterator<String> tempitr = listr.listIterator();
+			   String prev = "";
+			   while(tempitr.hasNext()) {
+				   String temp = tempitr.next();
+				   
+				   if(prev!="") {
+					   String distance = "";
+					   ListIterator<Location> li = list.listIterator();
+					   while(li.hasNext()) {
+						   Location templocation = li.next();
+						   
+						   if(templocation.from.equals(prev) && templocation.place.equals(temp)) {
+							   distance = ""+templocation.distance;
+						   }
+					   }
+					   s+= " --- "+distance+" --- ";
+				   }
+				   s+=temp ;
+				   	
+					   prev = temp; 
+				   
+			   }
+			   finalPaths.add(s);
+		   }
+		return(finalPaths);
+	   
+	     
+	}
+
+	
+	public static boolean isNotVisited(String place,ArrayList<String> path) {
+		
+		for(int i=0;i<path.size();i++) {
+			if(path.get(i).equals(place)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		
+		ArrayList<Location> locationList = new ArrayList<Location>();
+		File csvFile = new File("C:/Users/vbaral/git/repository2/Algorithms/src/week9AndFollowing/location_details.csv");
+		BufferedReader br = new BufferedReader(new FileReader(csvFile));
+		String line = "";
+		try {
+		
+			while((line = br.readLine())!=null) {
+				String[] eachCellData = line.split(",");
+				Location somewhere = new Location(eachCellData[0],Integer.parseInt(eachCellData[1]), eachCellData[2]);
+				locationList.add(somewhere);
+			}
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	 
+
+	     
+	      
+		String shortestPath = dijikstra(locationList,"Jhapa","Kathmandu");
+		System.out.println("Shortest Path ");
+		System.out.println(shortestPath);
+		
+		ArrayList<String> allPaths = bfs(locationList,"Jhapa","Kathmandu");
+		System.out.println("All Possible Paths ");
+		for(int i=0;i<allPaths.size();i++) {
+			System.out.println(allPaths.get(i));
+		}
+	}
+	}
