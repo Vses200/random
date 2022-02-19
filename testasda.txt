@@ -1,0 +1,24 @@
+def test_register_view(self):
+        client = Client()
+        response = client.get(reverse("register"))
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'pages/register.html')
+
+def test_add_product_view(self):
+       
+        client = Client()
+        logged_in = client.login(username = 'your-username',password ='your_password')
+        response = client.get(reverse("addproduct"))
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'adminControl/addproduct.html')
+
+def test_delete_product_view(self):
+       
+        client = Client()
+        #create dummy product here otherwise product in your database will be deleted
+        #something like 
+        newProduct = Products.objects.create(product-name="kitab",product-genere="thriller")
+        #example ho afno model anusar gara
+        response = client.delete(reverse("delete-product"),args=[newProduct.slug_id])#again afno model anusar
+        self.assertEquals(response.status_code,302)
+        self.assertRedirects(response,'/delete-product/')
